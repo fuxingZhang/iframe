@@ -1,0 +1,35 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <button id="btn">向子页面传递消息</button>
+    <div id="div"></div>
+    <iframe id="iframe" src="http://localhost:3001/crossOrigin/child.html" style="margin-top: 50px;width: 800px;height: 400px;"></iframe>
+    
+    <script>
+        window.onload = function () {
+            var url = 'http://localhost:3001/crossOrigin/child.html';
+            var btn = document.querySelector('#btn');
+            var iframe = document.querySelector('#iframe');
+            var div = document.querySelector('#div');
+
+            window.addEventListener('message', function (e) {
+                console.log(e)
+                console.log(e.origin)
+                console.log(e.data)
+                console.log(e.target.url)
+                console.log(e.target)
+
+                div.innerHTML += `接收到来只${e.origin}的消息: ${e.data}</br>`
+            })
+
+            btn.onclick = function () {
+                iframe.contentWindow.postMessage('messageFromParent', 'http://localhost:3001/crossOrigin/child.html')
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <button id="btn">向父页面传递消息</button>
+    <div id="div"></div>
+    <script>
+        var url = 'http://localhost:3000/crossOrigin/parent.html';
+        var btn = document.querySelector('#btn');
+        var div = document.querySelector('#div');
+
+        window.addEventListener('message', function (e) {
+            console.log('child href', location.href)
+            console.log(e)
+            console.log(e.origin)
+            console.log(e.data)
+            console.log(e.target.url)
+            console.log(e.target)
+
+            div.innerHTML += `接收到来只${e.target.url}的消息: ${e.data}</br>`
+        })
+        
+        btn.addEventListener('click', function () {
+            // top.postMessage("messageFromChild", 'http://localhost:3000/crossOrigin/parent.html')
+            parent.postMessage("messageFromChild", 'http://localhost:3000/crossOrigin/parent.html')
+        })
+    </script>
+</body>
+
+</html>

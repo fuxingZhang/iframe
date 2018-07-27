@@ -1,0 +1,29 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <button id="btn">向父页面传递消息</button>
+    <div id="div"></div>
+    <script>
+        var url = 'http://localhost:3000/hash/parent.html';
+        var btn = document.querySelector('#btn');
+        var div = document.querySelector('#div');
+
+        //监听hash修改
+        window.addEventListener('hashchange', function () {
+            var hash = location.hash;
+            if(!hash) return
+            console.log(hash);
+            div.innerHTML += `接收到父页面转递来的消息：${hash.substr(1)}</br>`
+            location.hash = ''
+        })
+        
+        btn.addEventListener('click', function () {
+            window.parent.location.hash = 'messageFromChild'
+        })
+    </script>
+</body>
+
+</html>

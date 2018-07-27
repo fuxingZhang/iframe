@@ -1,0 +1,35 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <button id="btn">向子页面传递消息</button>
+    <div id="div"></div>
+    <!-- <iframe id="iframe" src="http://localhost:3001/hash/child.html" style="margin-top: 50px;"></iframe> -->
+    <iframe id="iframe" src="http://localhost:3000/hash/child.html" style="margin-top: 50px;width: 800px;height: 400px;"></iframe>
+    
+    <script>
+        window.onload = function () {
+            // var url = 'http://localhost:3001/crossOrigin/child.html';
+            var url = 'http://localhost:3000/hash/child.html';
+            var btn = document.querySelector('#btn');
+            var iframe = document.querySelector('#iframe');
+            var div = document.querySelector('#div');
+
+            window.addEventListener('hashchange', function (e) {
+                var hash = location.hash;
+                if(!hash) return
+                console.log(hash);
+                div.innerHTML += `子页面转递来的消息：${hash.substr(1)}</br>`
+                location.hash = ''
+            })
+
+            btn.onclick = function () {
+                iframe.contentWindow.location.hash = 'messageFromParent'
+            }
+        }
+    </script>
+</body>
+
+</html>
