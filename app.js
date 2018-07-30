@@ -26,13 +26,29 @@ app.on('error', async (err, ctx) => {
     console.info('get favicon.ico');
     return
   }
-  err.expose = true;
-  err.status = err.status || 500;
+  /*
+   * Source code
+     // default to 500
+     if ('number' != typeof err.status || !statuses[err.status]) err.status = 500;
+     // respond
+     const code = statuses[err.status];
+     const msg = err.expose ? err.message : code;
+     this.status = err.status;
+     this.length = Buffer.byteLength(msg);
+     this.res.end(msg);
+   */
+
   // delelopment
-  err.message = err.status > 500 ? 'Internal Server Error' : err.message
+  // err.expose = true;
+  // err.status = err.status || 500;
+  // err.message = err.status > 500 ? 'Internal Server Error' : err.message
+  
   // production
-  err.message = err.status >= 500 ? 'Internal Server Error' : err.message
-  err.message = err.status < 500 ? err.message : 'Internal Server Error'
+  // err.expose = true;
+  // err.status = err.status || 500;
+  // err.message = err.status >= 500 ? 'Internal Server Error' : err.message
+  // err.message = err.status < 500 ? err.message : 'Internal Server Error'
+
   console.error(err.stack ? err.stack : err)
 });
 
